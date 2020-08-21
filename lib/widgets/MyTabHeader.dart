@@ -1,9 +1,10 @@
+import 'package:MyWidgets/widgets/MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class MyTabHeader extends StatelessWidget {
-  List<Widget> tabViews;
-  List<Tab> tabs;
+  final List<Widget> tabViews;
+  final List<Tab> tabs;
   MyTabHeader({@required this.tabs, @required this.tabViews});
 
   @override
@@ -17,8 +18,8 @@ class MyTabHeader extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                     border: Border(
-                        bottom:
-                            BorderSide(width: 0.5, color: Color(0xffcccccc)))),
+                        bottom: BorderSide(
+                            width: 0.5, color: MyColors.lightColor))),
                 padding: EdgeInsets.only(top: statusBarHeight),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

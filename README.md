@@ -7,7 +7,7 @@
 - MyTabHeader
 - MyHeader
 - MyToast
-- MyAlert
+- MyModal
 - MyConfirm
 - MyModal
 - MyImageGrid

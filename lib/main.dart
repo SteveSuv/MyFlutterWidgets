@@ -1,9 +1,18 @@
-import 'package:MyWidgets/widgets/MyEndLine.dart';
+import 'package:MyWidgets/widgets/MyModal.dart';
+import 'package:MyWidgets/widgets/MyToast.dart';
 import 'package:flutter/material.dart';
-import 'package:MyWidgets/widgets/MyTabHeader.dart';
+import 'package:flutter/services.dart';
+import 'dart:io';
 
 void main() {
   runApp(MyApp());
+  if (Platform.isAndroid) {
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+    );
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -13,6 +22,8 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
@@ -23,6 +34,24 @@ class MyApp extends StatelessWidget {
 class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: MyEndLine());
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('首页'),
+          backgroundColor: Colors.deepPurple,
+        ),
+        body: Center(
+            child: RaisedButton(
+          onPressed: () {
+            MyModal(context: context).showAlert('你已经签到完成');
+          },
+          elevation: 0,
+          color: Colors.deepPurple,
+          child: Text(
+            '按钮',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        )));
   }
 }

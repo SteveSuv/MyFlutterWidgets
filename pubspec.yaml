@@ -26,14 +26,14 @@ dependencies:
   pull_to_refresh: ^1.6.0
   #分享
   share: ^0.6.4+3
-  #toast
-  bot_toast: ^3.0.0
   #网络请求
   dio: ^3.0.9
   #图标
   flutter_vector_icons: ^0.2.1
   #本地存储
   shared_preferences: ^0.5.8
+  #toast
+  fluttertoast: ^7.0.2
 
 dev_dependencies:
   flutter_test:
