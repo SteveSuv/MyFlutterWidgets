@@ -1,8 +1,12 @@
+import 'package:MyWidgets/widgets/MyImageGrid.dart';
 import 'package:MyWidgets/widgets/MyModal.dart';
+import 'package:MyWidgets/widgets/MyRefresh.dart';
+import 'package:MyWidgets/widgets/MyRequest.dart';
 import 'package:MyWidgets/widgets/MyToast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
+// import 'package:dio/dio.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,19 +43,6 @@ class MyHome extends StatelessWidget {
           title: Text('首页'),
           backgroundColor: Colors.deepPurple,
         ),
-        body: Center(
-            child: RaisedButton(
-          onPressed: () {
-            MyModal(context: context).showAlert('你已经签到完成');
-          },
-          elevation: 0,
-          color: Colors.deepPurple,
-          child: Text(
-            '按钮',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        )));
+        body: Center(child: Text('hello')));
   }
 }

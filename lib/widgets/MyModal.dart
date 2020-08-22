@@ -31,11 +31,13 @@ class MyModal {
   }
 
 // 自定义Modal
-  showModal(Widget child) {
+  showModal({@required Widget child, double width, double height}) {
     showDialog(
       context: context,
       child: ModalDialog(
         child: child,
+        width: width,
+        height: height,
       ),
     );
   }
@@ -57,10 +59,9 @@ class ConfirmDialog extends Dialog {
             height: 180.0,
             child: Container(
               clipBehavior: Clip.hardEdge,
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: MyFuncs.radius(8),
-              ),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -72,7 +73,7 @@ class ConfirmDialog extends Dialog {
                           Text(title ?? '提示',
                               style: TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold)),
-                          SizedBox(height: 18),
+                          SizedBox(height: 15),
                           Text(content, style: TextStyle(fontSize: 17))
                         ],
                       )),
@@ -143,10 +144,9 @@ class AlertDialog extends Dialog {
             height: 150.0,
             child: Container(
               clipBehavior: Clip.hardEdge,
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: MyFuncs.radius(8),
-              ),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -197,10 +197,9 @@ class ModalDialog extends Dialog {
             height: height ?? 180,
             child: Container(
                 clipBehavior: Clip.hardEdge,
-                decoration: ShapeDecoration(
-                  color: Colors.white,
-                  shape: MyFuncs.radius(8),
-                ),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
                 child: child),
           ),
         ));

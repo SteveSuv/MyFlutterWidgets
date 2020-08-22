@@ -9,6 +9,7 @@ class MyToast {
 
   showToast(String content) {
     FToast fToast = FToast(context);
+    fToast.removeQueuedCustomToasts();
     fToast.showToast(
       child: ToastDialog(content: content),
       gravity: ToastGravity.BOTTOM,
@@ -34,7 +35,7 @@ class MyToast {
       child: SuccessDialog(content: content),
       barrierColor: Colors.white.withOpacity(0),
     );
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2), () {
       Navigator.of(context).pop();
     });
   }
@@ -45,7 +46,7 @@ class MyToast {
       child: FailDialog(content: content),
       barrierColor: Colors.white.withOpacity(0),
     );
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2), () {
       Navigator.of(context).pop();
     });
   }
@@ -87,9 +88,9 @@ class LoadingDialog extends Dialog {
             width: 120.0,
             height: 120.0,
             child: Container(
-              decoration: ShapeDecoration(
+              decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.7),
-                  shape: MyFuncs.radius(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -142,9 +143,9 @@ class SuccessDialog extends Dialog {
             width: 120.0,
             height: 120.0,
             child: Container(
-              decoration: ShapeDecoration(
+              decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.7),
-                  shape: MyFuncs.radius(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -192,9 +193,9 @@ class FailDialog extends Dialog {
             width: 120.0,
             height: 120.0,
             child: Container(
-              decoration: ShapeDecoration(
+              decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.7),
-                  shape: MyFuncs.radius(8)),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -205,7 +206,7 @@ class FailDialog extends Dialog {
                     height: 50,
                     child: Center(
                         child: Icon(
-                      SimpleLineIcons.clock,
+                      SimpleLineIcons.close,
                       color: Colors.white,
                       size: 25,
                     )),
