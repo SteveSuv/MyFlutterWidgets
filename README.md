@@ -4,11 +4,11 @@
 
 开发内容包括：
 <!-- - MyRequest -->
-- MyImageGrid
-- MyImageView
+<!-- - MyImageGrid -->
+<!-- - MyImageView -->
 - MySearchBar
 - MyBottomSheet
-- MyFunc:share,
+- MyFunc:share,setStorge,剪切板，pickimg...
 - MyPost
 - MyComment
 - MyBottomButton

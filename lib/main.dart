@@ -1,12 +1,8 @@
-import 'package:MyWidgets/widgets/MyImageGrid.dart';
+import 'package:MyWidgets/widgets/MyImageView.dart';
 import 'package:MyWidgets/widgets/MyModal.dart';
-import 'package:MyWidgets/widgets/MyRefresh.dart';
-import 'package:MyWidgets/widgets/MyRequest.dart';
-import 'package:MyWidgets/widgets/MyToast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
-// import 'package:dio/dio.dart';
 
 void main() {
   runApp(MyApp());
@@ -43,6 +39,12 @@ class MyHome extends StatelessWidget {
           title: Text('首页'),
           backgroundColor: Colors.deepPurple,
         ),
-        body: Center(child: Text('hello')));
+        body: Center(
+            child: RaisedButton(
+          onPressed: () {
+            MyModal(context: context).showConfirm('是否退出应用');
+          },
+          child: Text('按钮'),
+        )));
   }
 }
