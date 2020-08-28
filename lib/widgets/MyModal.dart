@@ -30,6 +30,28 @@ class MyModal {
     );
   }
 
+// menu
+  showMenu(List<Map> menu) {
+    var ExMenu = [
+      {
+        "text": "拍照",
+        "onPressed": () {
+          Navigator.pop(context);
+        }
+      },
+      {
+        "text": "从相册中选择",
+        "onPressed": () {
+          Navigator.pop(context);
+        }
+      }
+    ];
+    showDialog(
+      context: context,
+      child: MenuDialog(menu: menu ?? ExMenu),
+    );
+  }
+
 // 自定义Modal
   showModal({@required Widget child, double width, double height}) {
     showDialog(
@@ -45,9 +67,9 @@ class MyModal {
 
 Widget myTitle({String title}) {
   return Padding(
-    padding: EdgeInsets.all(20),
+    padding: EdgeInsets.only(top: 20, left: 20, right: 20),
     child: Text(title ?? '提示',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
   );
 }
 
@@ -55,29 +77,26 @@ Widget myOptions({List options}) {
   int length = options.length;
   if (length == 1) {
     return SizedBox(
-        height: 60,
-        width: 320,
+        height: 50,
+        width: 300,
         child: FlatButton(
             clipBehavior: Clip.hardEdge,
             highlightColor: MyColors.lightColor,
             onPressed: options[0]['onPressed'],
             child: Text(
               options[0]['text'],
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: MyColors.themeColor),
+              style: TextStyle(fontSize: 14, color: MyColors.themeColor),
             )));
   } else if (length == 2) {
     return SizedBox(
-        height: 60,
+        height: 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              width: 159.5,
-              height: 60,
+              width: 149.5,
+              height: 50,
               child: FlatButton(
                   clipBehavior: Clip.hardEdge,
                   highlightColor: MyColors.lightColor,
@@ -85,25 +104,22 @@ Widget myOptions({List options}) {
                   child: Text(
                     options[0]['text'],
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                      color: Colors.black,
+                      fontSize: 14,
                     ),
                   )),
             ),
             MyDivider.vertical,
             SizedBox(
-              width: 159.5,
-              height: 60,
+              width: 149.5,
+              height: 50,
               child: FlatButton(
                   clipBehavior: Clip.hardEdge,
                   highlightColor: MyColors.lightColor,
                   onPressed: options[1]['onPressed'],
                   child: Text(
                     options[1]['text'],
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: MyColors.themeColor),
+                    style: TextStyle(fontSize: 14, color: MyColors.themeColor),
                   )),
             ),
           ],
@@ -125,7 +141,7 @@ class ConfirmDialog extends Dialog {
       type: MaterialType.transparency,
       child: Center(
         child: Container(
-          width: 320.0,
+          width: 300.0,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -136,8 +152,9 @@ class ConfirmDialog extends Dialog {
             children: <Widget>[
               myTitle(title: title),
               Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, bottom: 30),
-                child: Text(content, style: TextStyle(fontSize: 17)),
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
+                child: Text(content, style: TextStyle(fontSize: 14)),
               ),
               MyDivider.horizontal,
               myOptions(options: [
@@ -173,7 +190,7 @@ class AlertDialog extends Dialog {
       type: MaterialType.transparency,
       child: Center(
         child: Container(
-          width: 320.0,
+          width: 300.0,
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -183,8 +200,8 @@ class AlertDialog extends Dialog {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
-                child: Text(content, style: TextStyle(fontSize: 17)),
+                padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                child: Text(content, style: TextStyle(fontSize: 14)),
               ),
               MyDivider.horizontal,
               myOptions(options: [
@@ -197,6 +214,56 @@ class AlertDialog extends Dialog {
               ])
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class MenuDialog extends Dialog {
+  final List menu;
+
+  MenuDialog({@required this.menu});
+
+  List<Widget> menuList(context) {
+    return menu.map((item) {
+      return Column(
+        children: [
+          SizedBox(
+              height: 50,
+              width: 300,
+              child: FlatButton(
+                  clipBehavior: Clip.hardEdge,
+                  highlightColor: MyColors.lightColor,
+                  onPressed: item["onPressed"],
+                  child: Text(
+                    item["text"],
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                  ))),
+          MyDivider.horizontal
+        ],
+      );
+    }).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      type: MaterialType.transparency,
+      child: Center(
+        child: Container(
+          width: 300.0,
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(5.0))),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: menuList(context)),
         ),
       ),
     );
@@ -216,12 +283,12 @@ class ModalDialog extends Dialog {
       type: MaterialType.transparency,
       child: Center(
         child: Container(
-            width: width ?? 320,
+            width: width ?? 300,
             clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(5.0))),
-            child: child),
+            child: child ?? Text('Hello')),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:MyWidgets/widgets/MyImageView.dart';
 import 'package:MyWidgets/widgets/MyModal.dart';
+import 'package:MyWidgets/widgets/MyToast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
@@ -42,7 +43,7 @@ class MyHome extends StatelessWidget {
         body: Center(
             child: RaisedButton(
           onPressed: () {
-            MyModal(context: context).showConfirm('是否退出应用');
+            MyToast(context: context).showSuccess('content');
           },
           child: Text('按钮'),
         )));

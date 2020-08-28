@@ -88,18 +88,41 @@ class LoadingDialog extends Dialog {
             width: 120.0,
             height: 120.0,
             child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.7),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 30,
-                  ),
-                  SizedBox(
-                      height: 50,
-                      child: Center(
+                decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.7),
+                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                child: content == ''
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 30,
+                          ),
+                          SizedBox(
+                              height: 50,
+                              child: Center(
+                                child: SizedBox(
+                                    width: 15,
+                                    height: 15,
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          Colors.white),
+                                      strokeWidth: 1,
+                                    )),
+                              )),
+                          SizedBox(
+                            height: 30,
+                            child: Center(
+                              child: Text(
+                                content,
+                                style: TextStyle(
+                                    fontSize: 12.0, color: Colors.white),
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    : Center(
                         child: SizedBox(
                             width: 15,
                             height: 15,
@@ -109,18 +132,6 @@ class LoadingDialog extends Dialog {
                               strokeWidth: 1,
                             )),
                       )),
-                  SizedBox(
-                    height: 30,
-                    child: Center(
-                      child: Text(
-                        content,
-                        style: TextStyle(fontSize: 12.0, color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
           ),
         )
         // )
