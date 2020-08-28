@@ -43,7 +43,10 @@ class MyHome extends StatelessWidget {
         body: Center(
             child: RaisedButton(
           onPressed: () {
-            MyToast(context: context).showSuccess('content');
+            MyModal(context: context).showActionSheet(
+                child: Center(
+              child: Text('data'),
+            ));
           },
           child: Text('按钮'),
         )));

@@ -2,6 +2,7 @@ import 'package:MyWidgets/widgets/MyColors.dart';
 import 'package:MyWidgets/widgets/MyDivider.dart';
 import 'package:MyWidgets/widgets/MyFuncs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 // 还未考虑字数换行问题
 
@@ -32,23 +33,9 @@ class MyModal {
 
 // menu
   showMenu(List<Map> menu) {
-    var ExMenu = [
-      {
-        "text": "拍照",
-        "onPressed": () {
-          Navigator.pop(context);
-        }
-      },
-      {
-        "text": "从相册中选择",
-        "onPressed": () {
-          Navigator.pop(context);
-        }
-      }
-    ];
     showDialog(
       context: context,
-      child: MenuDialog(menu: menu ?? ExMenu),
+      child: MenuDialog(menu: menu),
     );
   }
 
@@ -62,6 +49,133 @@ class MyModal {
         height: height,
       ),
     );
+  }
+
+//android actionSheet
+  showAndroidActionSheet(
+      {@required List<Map> actions, String title, String message}) {
+    List<Widget> myActions(context) {
+      return actions.map((item) {
+        return Column(
+          children: [
+            SizedBox(
+                height: 60,
+                width: MediaQuery.of(context).size.width,
+                child: FlatButton(
+                    clipBehavior: Clip.hardEdge,
+                    highlightColor: MyColors.lightColor,
+                    onPressed: item["onPressed"],
+                    child: Text(
+                      item["text"],
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: item["color"] ?? Colors.black,
+                      ),
+                    ))),
+            MyDivider.horizontal()
+          ],
+        );
+      }).toList();
+    }
+
+    Widget cancelBtn() {
+      return SizedBox(
+          height: 60,
+          width: MediaQuery.of(context).size.width,
+          child: FlatButton(
+              clipBehavior: Clip.hardEdge,
+              highlightColor: MyColors.lightColor,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                '取消',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              )));
+    }
+
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(15))),
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    title != null
+                        ? Padding(
+                            padding: message != null
+                                ? EdgeInsets.only(top: 15)
+                                : EdgeInsets.all(15),
+                            child: Text(
+                              title,
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.bold),
+                            ))
+                        : SizedBox(height: 0),
+                    message != null
+                        ? Padding(
+                            padding: EdgeInsets.all(10), child: Text(message))
+                        : SizedBox(height: 0),
+                    MyDivider.horizontal(),
+                    ...myActions(context),
+                    MyDivider.horizontal(length: 10),
+                    cancelBtn()
+                  ]));
+        });
+  }
+
+//IOS actionSheet
+  showIosActionSheet(
+      {@required List<Map> actions, String title, String message}) {
+    List<Widget> myActions() {
+      return actions.map((item) {
+        return CupertinoActionSheetAction(
+          child: Text(item["text"]),
+          onPressed: item["onPressed"],
+          isDefaultAction: true,
+        );
+      }).toList();
+    }
+
+    showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return CupertinoActionSheet(
+              title: Text(title ?? '提示'),
+              message: Text(message ?? '是否要删除当前项？'),
+              cancelButton: CupertinoActionSheetAction(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              actions: myActions());
+        });
+  }
+
+//自定义 actionSheet
+  showActionSheet({@required child}) {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(15))),
+              child: child);
+        });
   }
 }
 
@@ -109,7 +223,7 @@ Widget myOptions({List options}) {
                     ),
                   )),
             ),
-            MyDivider.vertical,
+            MyDivider.vertical(),
             SizedBox(
               width: 149.5,
               height: 50,
@@ -156,7 +270,7 @@ class ConfirmDialog extends Dialog {
                     EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
                 child: Text(content, style: TextStyle(fontSize: 14)),
               ),
-              MyDivider.horizontal,
+              MyDivider.horizontal(),
               myOptions(options: [
                 {
                   'text': '取消',
@@ -203,7 +317,7 @@ class AlertDialog extends Dialog {
                 padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
                 child: Text(content, style: TextStyle(fontSize: 14)),
               ),
-              MyDivider.horizontal,
+              MyDivider.horizontal(),
               myOptions(options: [
                 {
                   'text': '我知道了',
@@ -225,7 +339,7 @@ class MenuDialog extends Dialog {
 
   MenuDialog({@required this.menu});
 
-  List<Widget> menuList(context) {
+  List<Widget> myMenu(context) {
     return menu.map((item) {
       return Column(
         children: [
@@ -243,7 +357,7 @@ class MenuDialog extends Dialog {
                       color: Colors.black,
                     ),
                   ))),
-          MyDivider.horizontal
+          MyDivider.horizontal()
         ],
       );
     }).toList();
@@ -263,7 +377,7 @@ class MenuDialog extends Dialog {
           child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: menuList(context)),
+              children: myMenu(context)),
         ),
       ),
     );
